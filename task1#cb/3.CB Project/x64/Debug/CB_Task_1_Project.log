@@ -1,0 +1,26 @@
+﻿  CB_Task_1_Predef.cpp
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(20,50): error C2065: 'simx_opmode_oneshot_wait': undeclared identifier
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(22,52): error C2065: 'simx_opmode_oneshot_wait': undeclared identifier
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(23,60): error C2065: 'simx_opmode_oneshot_wait': undeclared identifier
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(25,62): error C2065: 'simx_opmode_oneshot_wait': undeclared identifier
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(27,64): error C2065: 'simx_opmode_oneshot_wait': undeclared identifier
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(29,52): error C2065: 'simx_opmode_oneshot_wait': undeclared identifier
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(30,40): error C2065: 'simx_opmode_oneshot_wait': undeclared identifier
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(31,62): error C2065: 'simx_opmode_oneshot_wait': undeclared identifier
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(38,69): error C2065: 'simx_opmode_oneshot': undeclared identifier
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(39,67): error C2065: 'simx_opmode_oneshot': undeclared identifier
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(117,71): error C2065: 'simx_opmode_buffer': undeclared identifier
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(123,102): error C2065: 'simx_opmode_buffer': undeclared identifier
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(163,36): error C2065: 'simx_opmode_oneshot_wait': undeclared identifier
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(164,21): error C2065: 'simx_return_ok': undeclared identifier
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(171,14): error C2065: 'simx_error_novalue_flag': undeclared identifier
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(185,84): error C2065: 'simx_opmode_streaming': undeclared identifier
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(186,22): error C2065: 'simx_return_ok': undeclared identifier
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(186,53): error C2065: 'simx_error_novalue_flag': undeclared identifier
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(198,81): error C2065: 'simx_opmode_streaming': undeclared identifier
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(199,23): error C2065: 'simx_return_ok': undeclared identifier
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(199,55): error C2065: 'simx_error_novalue_flag': undeclared identifier
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(247,34): error C2065: 'simx_opmode_oneshot_wait': undeclared identifier
+  CB_Task_1_Sandbox.cpp
+  Generating Code...
+C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\CB_Task_1_Predef.cpp(248,20): error C2065: 'simx_return_ok': undeclared identifier
