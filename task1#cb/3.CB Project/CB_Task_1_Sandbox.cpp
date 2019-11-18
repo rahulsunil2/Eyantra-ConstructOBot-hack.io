@@ -21,31 +21,28 @@ void forward_wls(unsigned char node)
 		center_sensor = ADC_Conversion(2);
 		right_sensor = ADC_Conversion(3);
 
+
 		if (left_sensor != 255 and center_sensor == 255 and right_sensor != 255)       // x != 255 -> white
 			forward();
 		else if (left_sensor != 255 and center_sensor != 255 and right_sensor == 255) {
-			//soft_right();
-			velocity(150, 0);
+			velocity(125, 0);
 			_delay_ms(50);
 		}
 		else if (left_sensor == 255 and center_sensor != 255 and right_sensor != 255) {
-			//soft_left();
-			velocity(0, 150);
+			velocity(0, 125);
 			_delay_ms(50);
 		}
 		else if ((left_sensor == 255 and center_sensor == 255 and right_sensor == 255)) {
 			nodeDetect++;
 			printf("\n%d", nodeDetect);
-			//stop();
-			//_delay_ms(10000);
 
 			if (nodeDetect == node) {
 				forward();
-				_delay_ms(200);
+				_delay_ms(260);
 				stop();
 				break;
 			}
-			while ((left_sensor == 255 and center_sensor == 255 and right_sensor == 255) /*or (left_sensor != 255 and center_sensor == 255 and right_sensor == 255) or (left_sensor == 255 and center_sensor == 255 and right_sensor != 255)*/) {
+			while ((left_sensor == 255 and center_sensor == 255 and right_sensor == 255)) {
 				left_sensor = ADC_Conversion(1);
 				center_sensor = ADC_Conversion(2);
 				right_sensor = ADC_Conversion(3);
@@ -57,6 +54,63 @@ void forward_wls(unsigned char node)
 	}
 	stop();
 }
+
+/*
+*
+* Function Name: forward_inv
+* Input: void
+* Output: void
+* Logic: Uses white line sensors to go forward through the black block with white line.
+* Example Call: forward_inv(); //Moves forward
+*/
+
+void forward_inv(void)
+{
+	unsigned char left_sensor, center_sensor, right_sensor, nodeDetect = 0;
+	while (1)
+	{
+		left_sensor = ADC_Conversion(1);
+		center_sensor = ADC_Conversion(2);
+		right_sensor = ADC_Conversion(3);
+
+
+		if (left_sensor != 255 and center_sensor == 255 and right_sensor != 255)
+			velocity(150, 150);
+		else if (left_sensor != 255 and center_sensor != 255 and right_sensor == 255) {
+			velocity(125, 0);
+			_delay_ms(50);
+		}
+		else if (left_sensor == 255 and center_sensor != 255 and right_sensor != 255) {
+			velocity(0, 125);
+			_delay_ms(50);
+		}
+		else if ((left_sensor == 255 and center_sensor != 255 and right_sensor == 255) or (left_sensor == 255 and center_sensor == 255 and right_sensor != 255) or (left_sensor != 255 and center_sensor == 255 and right_sensor == 255)) {
+			forward();
+			while (1) {
+				if (left_sensor == 255 and center_sensor != 255 and right_sensor == 255)
+					velocity(150, 150);
+				else if (left_sensor == 255 and center_sensor == 255 and right_sensor != 255) {
+					velocity(125, 0);
+					_delay_ms(50);
+				}
+				else if (left_sensor != 255 and center_sensor == 255 and right_sensor == 255) {
+					velocity(0, 125);
+					_delay_ms(50);
+				}
+				else if (left_sensor != 255 and center_sensor == 255 and right_sensor != 255)
+					break;
+			}
+		}
+		else if ((left_sensor == 255 and center_sensor == 255 and right_sensor == 255)) {
+			forward();
+			_delay_ms(260);
+			stop();
+			break;
+		}
+	}
+	stop();
+}
+
 /*
 *
 * Function Name: left_turn_wls
@@ -75,7 +129,7 @@ void left_turn_wls(void)
 	center_sensor = ADC_Conversion(2);
 	right_sensor = ADC_Conversion(3);
 
-	while (left_sensor != 255 and center_sensor != 255 and right_sensor != 255)
+	while (left_sensor == 255 and center_sensor != 255 and right_sensor != 255)
 	{
 		left();
 		left_sensor = ADC_Conversion(1);
@@ -85,19 +139,19 @@ void left_turn_wls(void)
 	
 	while (!(left_sensor != 255 and center_sensor == 255 and right_sensor != 255)) {
 		if (left_sensor != 255 and center_sensor != 255 and right_sensor == 255) {
-			soft_right();
+			velocity(100, 0);
 			_delay_ms(50);
 			}
 		else if (left_sensor == 255 and center_sensor != 255 and right_sensor != 255) {
-			soft_left();
+			velocity(0, 100);
 			_delay_ms(50);
 		}
 		left_sensor = ADC_Conversion(1);
 		center_sensor = ADC_Conversion(2);
 		right_sensor = ADC_Conversion(3);
 	}
+
 	stop();
-	//_delay_ms(1000);
 }
 
 /*
@@ -117,7 +171,7 @@ void right_turn_wls(void)
 	center_sensor = ADC_Conversion(2);
 	right_sensor = ADC_Conversion(3);
 
-	while (left_sensor != 255 and center_sensor != 255 and right_sensor != 255)
+	while (left_sensor != 255 and center_sensor != 255 and right_sensor == 255)
 	{
 		right();
 		left_sensor = ADC_Conversion(1);
@@ -127,11 +181,11 @@ void right_turn_wls(void)
 
 	while (!(left_sensor != 255 and center_sensor == 255 and right_sensor != 255)) {
 		if (left_sensor != 255 and center_sensor != 255 and right_sensor == 255) {
-			soft_right();
+			velocity(100, 0);
 			_delay_ms(50);
 		}
 		else if (left_sensor == 255 and center_sensor != 255 and right_sensor != 255) {
-			soft_left();
+			velocity(0, 100);
 			_delay_ms(50);
 		}
 		left_sensor = ADC_Conversion(1);
@@ -140,7 +194,6 @@ void right_turn_wls(void)
 	}
 
 	stop();
-	//_delay_ms(1000);
 }
 
 /*
@@ -181,28 +234,37 @@ void Task_1_1(void)
 	printf("\nLeft turn");
 	left_turn_wls();
 
-	for (int i = 0; i < 3; i++){
+	for (int i = 0; i < 4; i++){
 		printf("\nForward by 1 node");
 		forward_wls(1);
 
 		printf("\nLeft turn");
 		left_turn_wls();
-		/*left();
-		_delay_ms(500);
-		stop;*/
 
 		printf("\nForward by 1 node");
 		forward_wls(1);
 
 		printf("\nRight turn");
 		right_turn_wls();
-		/*right();
-		_delay_ms(500);
-		stop;*/
 	}
 	
+	printf("\nInverted Forward by 1 node");
+	forward_inv();
+
+	printf("\nRight turn");
+	right_turn_wls();
+
 	printf("\nForward by 1 node");
 	forward_wls(1);
+
+	printf("\nLeft turn");
+	left_turn_wls();
+
+	printf("\nForward by 1 node");
+	forward_wls(1);
+	stop();
+
+
 }
 
 /*
