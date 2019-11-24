@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?><DEFECTS><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\</FILEPATH>
+      <FILENAME>CB_Task_1_Predef.cpp</FILENAME>
+      <LINE>165</LINE>
+      <COLUMN>64</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>filter_red</FUNCTION>
+    <DECORATED>?filter_red@@YAXXZ</DECORATED>
+    <FUNCLINE>162</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\</FILEPATH>
+      <FILENAME>CB_Task_1_Predef.cpp</FILENAME>
+      <LINE>171</LINE>
+      <COLUMN>64</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>filter_green</FUNCTION>
+    <DECORATED>?filter_green@@YAXXZ</DECORATED>
+    <FUNCLINE>168</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\</FILEPATH>
+      <FILENAME>CB_Task_1_Predef.cpp</FILENAME>
+      <LINE>177</LINE>
+      <COLUMN>64</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>filter_blue</FUNCTION>
+    <DECORATED>?filter_blue@@YAXXZ</DECORATED>
+    <FUNCLINE>174</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\</FILEPATH>
+      <FILENAME>CB_Task_1_Predef.cpp</FILENAME>
+      <LINE>183</LINE>
+      <COLUMN>112</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>filter_clear</FUNCTION>
+    <DECORATED>?filter_clear@@YAXXZ</DECORATED>
+    <FUNCLINE>180</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\</FILEPATH>
+      <FILENAME>CB_Task_1_Predef.cpp</FILENAME>
+      <LINE>183</LINE>
+      <COLUMN>88</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>filter_clear</FUNCTION>
+    <DECORATED>?filter_clear@@YAXXZ</DECORATED>
+    <FUNCLINE>180</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\rahul\Desktop\EYantra\task1#cb\3.CB Project\</FILEPATH>
+      <FILENAME>CB_Task_1_Predef.cpp</FILENAME>
+      <LINE>183</LINE>
+      <COLUMN>65</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2).</DESCRIPTION>
+    <FUNCTION>filter_clear</FUNCTION>
+    <DECORATED>?filter_clear@@YAXXZ</DECORATED>
+    <FUNCLINE>180</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT></DEFECTS>

@@ -25,20 +25,16 @@ void forward_wls(unsigned char node)
 		if (left_sensor != 255 and center_sensor == 255 and right_sensor != 255)       // x != 255 -> white
 			forward();
 		else if (left_sensor != 255 and center_sensor != 255 and right_sensor == 255) {
-			//soft_right();
 			velocity(125, 0);
 			_delay_ms(50);
 		}
 		else if (left_sensor == 255 and center_sensor != 255 and right_sensor != 255) {
-			//soft_left();
 			velocity(0, 125);
 			_delay_ms(50);
 		}
 		else if ((left_sensor == 255 and center_sensor == 255 and right_sensor == 255)) {
 			nodeDetect++;
 			printf("\n%d", nodeDetect);
-			//stop();
-			//_delay_ms(10000);
 
 			if (nodeDetect == node) {
 				forward();
@@ -46,7 +42,7 @@ void forward_wls(unsigned char node)
 				stop();
 				break;
 			}
-			while ((left_sensor == 255 and center_sensor == 255 and right_sensor == 255) /*or (left_sensor != 255 and center_sensor == 255 and right_sensor == 255) or (left_sensor == 255 and center_sensor == 255 and right_sensor != 255)*/) {
+			while ((left_sensor == 255 and center_sensor == 255 and right_sensor == 255)) {
 				left_sensor = ADC_Conversion(1);
 				center_sensor = ADC_Conversion(2);
 				right_sensor = ADC_Conversion(3);
@@ -57,7 +53,6 @@ void forward_wls(unsigned char node)
 			continue;
 	}
 	stop();
-	//_delay_ms(1000);
 }
 
 /*
@@ -82,32 +77,31 @@ void forward_inv(void)
 		if (left_sensor != 255 and center_sensor == 255 and right_sensor != 255)
 			forward();
 		else if (left_sensor != 255 and center_sensor != 255 and right_sensor == 255) {
-			//soft_right();
 			velocity(125, 0);
 			_delay_ms(50);
 		}
 		else if (left_sensor == 255 and center_sensor != 255 and right_sensor != 255) {
-			//soft_left();
 			velocity(0, 125);
 			_delay_ms(50);
 		}
-		else if (left_sensor == 255 and center_sensor != 255 and right_sensor == 255) {
+		else if ((left_sensor == 255 and center_sensor != 255 and right_sensor == 255) or (left_sensor == 255 and center_sensor == 255 and right_sensor != 255) or (left_sensor != 255 and center_sensor == 255 and right_sensor == 255)) {
 			forward();
 			while (1) {
 				if (left_sensor == 255 and center_sensor != 255 and right_sensor == 255)
-					forward();
+					velocity(150, 150);
 				else if (left_sensor == 255 and center_sensor == 255 and right_sensor != 255) {
-					//soft_right();
 					velocity(125, 0);
 					_delay_ms(50);
 				}
 				else if (left_sensor != 255 and center_sensor == 255 and right_sensor == 255) {
-					//soft_left();
 					velocity(0, 125);
 					_delay_ms(50);
 				}
 				else if (left_sensor != 255 and center_sensor == 255 and right_sensor != 255)
 					break;
+				left_sensor = ADC_Conversion(1);
+				center_sensor = ADC_Conversion(2);
+				right_sensor = ADC_Conversion(3);
 			}
 		}
 		else if ((left_sensor == 255 and center_sensor == 255 and right_sensor == 255)) {
@@ -116,94 +110,6 @@ void forward_inv(void)
 			stop();
 			break;
 		}
-		else
-			continue;
-	}
-	stop();
-}
-
-/*
-*
-* Function Name : forward_prox
-* Input : void
-* Output : void
-* Logic : Uses proximity sensors to go forward between the walls.
-* Example Call : forward_prox(); //Moves forward
-*/
-
-void forward_prox(void)
-{
-	unsigned char left_sensor, center_sensor, right_sensor, front_IR, left_IR, right_IR, IR_diff;
-	while (1)
-	{
-		left_sensor = ADC_Conversion(1);
-		center_sensor = ADC_Conversion(2);
-		right_sensor = ADC_Conversion(3);
-
-		if (left_sensor != 255 and center_sensor == 255 and right_sensor != 255)       // x != 255 -> white
-			forward();
-		else if (left_sensor != 255 and center_sensor != 255 and right_sensor == 255) {
-			//soft_right();
-			velocity(125, 0);
-			_delay_ms(50);
-		}
-		else if (left_sensor == 255 and center_sensor != 255 and right_sensor != 255) {
-			//soft_left();
-			velocity(0, 125);
-			_delay_ms(50);
-		}
-		else if (left_sensor != 255 and center_sensor != 255 and right_sensor != 255) { //{Proximity Sensor
-			printf("Entered Proximity Sensor");
-			forward();
-
-			while (left_sensor != 255 and center_sensor != 255 and right_sensor != 255) {
-				left_sensor = ADC_Conversion(1);
-				center_sensor = ADC_Conversion(2);
-				right_sensor = ADC_Conversion(3);
-				front_IR = ADC_Conversion(4);
-				left_IR = ADC_Conversion(5);
-				right_IR = ADC_Conversion(6);
-
-				IR_diff = (left_IR - right_IR);
-
-				if (left_IR == 32 || right_IR == 32) {
-					continue;
-				}
-				else if (abs(IR_diff) < 10)
-					forward();
-				else if (IR_diff > 0) {
-					//soft_right();
-					velocity(100, 0);
-					_delay_ms(10);
-					forward();
-					_delay_ms(50);
-					velocity(0, 100);
-
-				}
-				else if (IR_diff < 0) {
-					//soft_left();
-					velocity(0, 100);
-					_delay_ms(10);
-					forward();
-					_delay_ms(50);
-					velocity(100, 0);
-				}
-				else if (left_sensor != 255 and center_sensor == 255 and right_sensor != 255)
-					break;
-
-				printf("%d, %d\n", left_IR, right_IR);
-			}
-			printf("%d, %d\n", left_IR, right_IR);
-			stop();
-		}
-		/*else if ((left_sensor == 255 and center_sensor == 255 and right_sensor == 255)) {
-			forward();
-			_delay_ms(260);
-			stop();
-			break;
-		}*/
-		else
-			continue;
 	}
 	stop();
 }
@@ -249,7 +155,6 @@ void left_turn_wls(void)
 	}
 
 	stop();
-	//_delay_ms(1000);
 }
 
 /*
@@ -292,7 +197,6 @@ void right_turn_wls(void)
 	}
 
 	stop();
-	//_delay_ms(1000);
 }
 
 /*
@@ -376,5 +280,5 @@ void Task_1_1(void)
 */
 void Task_1_2(void)
 {
-
+	//write your task 1.2 logic here
 }  
