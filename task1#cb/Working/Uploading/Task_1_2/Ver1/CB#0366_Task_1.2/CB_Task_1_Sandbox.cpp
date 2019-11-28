@@ -71,13 +71,13 @@ void forward_wls(unsigned char node)
 		}
 		else if (left_sensor != 255 and center_sensor != 255 and right_sensor == 255) {
 			//soft_right();
-			velocity(125, 0);
-			_delay_ms(50);
+			velocity(175, 0);
+			_delay_ms(25);
 		}
 		else if (left_sensor == 255 and center_sensor != 255 and right_sensor != 255) {
 			//soft_left();
-			velocity(0, 125);
-			_delay_ms(50);
+			velocity(0, 175);
+			_delay_ms(25);
 		}
 
 		else if (left_sensor == 255 and center_sensor != 255 and right_sensor == 255) {  // -> WHITE LINE FOLLOWER
@@ -127,7 +127,7 @@ void forward_wls(unsigned char node)
 
 			if (nodeDetect == node) {
 				forward();
-				_delay_ms(260);
+				_delay_ms(230);
 				stop();
 				break;
 			}
@@ -142,6 +142,7 @@ void forward_wls(unsigned char node)
 			continue;
 	}
 	stop();
+	//_delay_ms(1000);
 }
 
 /*
@@ -242,7 +243,7 @@ void left_turn_wls(void)
 {
 	printf("\nLEFT TURN");
 	left();
-	_delay_ms(300);
+	_delay_ms(250);
 	unsigned char left_sensor, center_sensor, right_sensor;
 	left_sensor = ADC_Conversion(1);
 	center_sensor = ADC_Conversion(2);
@@ -255,7 +256,6 @@ void left_turn_wls(void)
 		center_sensor = ADC_Conversion(2);
 		right_sensor = ADC_Conversion(3);
 	}
-	_delay_ms(75);
 	
 	while (!(left_sensor != 255 and center_sensor == 255 and right_sensor != 255)) {
 		if (left_sensor != 255 and center_sensor != 255 and right_sensor == 255) {
@@ -272,6 +272,7 @@ void left_turn_wls(void)
 	}
 
 	stop();
+	//_delay_ms(1000);
 }
 
 /*
@@ -741,4 +742,7 @@ void Task_1_2(void)
 	transport(8, 12, 8);
 	
 
+
+
+	
 }  
