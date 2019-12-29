@@ -1,0 +1,5 @@
+Animal model -animal.pth
+https://drive.google.com/open?id=1mHM6YrI6-McTWYb6MBtu9GjTIJOAMwJq
+
+Habitat model-habitat.pth
+https://drive.google.com/open?id=1TPqVaUKXmt3FPBg1YPtQ2bKeBU4eomVu
