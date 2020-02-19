@@ -9,7 +9,8 @@ const int B_1 = 24;
 const int B_2 = 25;
 int threshold = 500;
 int rot_delay = 390;
-
+int proxleft = 8; //K0
+int proxright = 9 ;//K1
 /*
 *
 * Function Name: pin_init
@@ -219,7 +220,7 @@ void drop(unsigned char direction) {
 */
 void forward_wls(unsigned char node)
 {
-  int left_sensor, center_sensor, right_sensor, flag = 0;
+  int left_sensor, center_sensor, right_sensor, flag = 0, nodeDetect=0;
   while (flag==0){
     left_sensor = analogRead(A1);
     center_sensor = analogRead(A2);
@@ -246,13 +247,16 @@ void forward_wls(unsigned char node)
 
     else if ((left_sensor > threshold and center_sensor > threshold and right_sensor > threshold) || (left_sensor < threshold and center_sensor > threshold and right_sensor > threshold) || (left_sensor > threshold and center_sensor > threshold and right_sensor < threshold)) {
       Serial.begin("NODE DETECTED");
-      forward();
-      delay(200);
-      stop();
-      flag = 1;
-      break;
-    }
-  }
+      nodeDetect++;
+      if (nodeDetect == node) {
+        forward();
+        delay(200);
+        stop();
+        flag = 1;
+        break;
+      }
+    }   
+   }
   stop();
 }
 
@@ -289,43 +293,6 @@ void left_turn_wls()
   stop();
 }
 
-/*
-*
-* Function Name: task_4_zig()
-* Input: void
-* Output: void
-* Logic: Uses white line sensors to complete task 4 using the ZigZag lines.
-* Example Call: task_4_zig()
-*/
-void task_4_zig(){
-  forward_wls();
-  right_turn_wls();
-  forward_wls();
-  right_turn_wls();
-  forward_wls();
-  delay(1000);
-  forward_wls();
-  forward_wls();
-  forward_wls();
-  right_turn_wls();
-  forward_wls();
-  forward_wls();
-  delay(1000);
-  right_turn_wls();
-  right_turn_wls();
-  forward_wls();
-  left_turn_wls();
-  forward_wls();
-  delay(1000);
-  right_turn_wls();
-  right_turn_wls();
-  forward_wls();
-  right_turn_wls();
-  forward_wls();
-  right_turn_wls();
-  forward_wls();
-  forward_wls();
-}
 /*
 ###########################################################################################
 #####################################  PATH PLANNING  #####################################
@@ -538,6 +505,72 @@ void followPathBot(int sourceNode, int targetNode) {
     i++;
   }
 }
+/*
+*
+* Function Name: pickup_item
+* Input: void
+* Output: void
+* Logic: Uses proximity sensors to pickup the item from the right Warehouse
+* Example Call: pickup_item(); //Picks up the item from either right or left Warehouse.
+*
+*/
+
+void pickup_item(void) {
+  unsigned char right_IR, left_IR;
+  left_IR = analogRead(proxleft);
+  right_IR = analogRead(proxright);
+
+  //printf("\nBOT ORIENTATION : %d\n", botOrientation);
+
+  /*printf("%d, %d, %d\n", front_IR, left_IR, right_IR);
+  if (left_IR > right_IR or botOrientation == 2)
+    right_turn_wls();
+  else
+    left_turn_wls();*/
+
+  if ((left_IR > right_IR && botOrientation == 1) || (left_IR <= right_IR && botOrientation == 3))
+    botOrientation = 4;
+  else if ((left_IR <= right_IR && botOrientation == 1) || (left_IR > right_IR && botOrientation == 3))
+    botOrientation = 2;
+
+  forward_wls(1);
+  if (left_IR > right_IR or botOrientation == 2)
+    pick('R');
+  else
+    pick('L');
+ // pick();
+  left_turn_wls();
+  forward_wls(1);
+  //printf("\nBOT ORIENTATION : %d\n", botOrientation);
+}
+
+/*
+*
+* Function Name: drop_item
+* Input: currentNode
+* Output: void
+* Logic: Places the item in the house
+* Example Call: drop_item(3); // Place the item in house at node3
+*
+*/
+void drop_item(int currentNode){
+  forward_wls(1);
+  if (currentNode < 7 && botOrientation == 1 || currentNode > 7 && botOrientation == 3 || currentNode == 8 && botOrientation == 4)
+    drop('L');
+  else if (currentNode < 7 && botOrientation == 3 || currentNode > 7 && botOrientation == 1 || currentNode == 8 && botOrientation == 2)
+    drop('R');
+  if (currentNode < 7)
+    botOrientation = 2;
+  else if (currentNode > 7)
+    botOrientation = 4;
+  else
+    botOrientation = 1;
+
+  //forward_wls(1);
+  //place();
+  left_turn_wls();
+  forward_wls(1);
+}
 
 /*
 *
@@ -550,9 +583,9 @@ void followPathBot(int sourceNode, int targetNode) {
 */
 void transport(int currentNode, int pickUp, int dropOff) {
   followPathBot(currentNode, pickUp);
-  pick();
+  pickup_item();
   followPathBot(pickUp, dropOff);
-  drop(dropOff);
+  drop_item(dropOff);
 }
 
 /*
@@ -562,17 +595,24 @@ void transport(int currentNode, int pickUp, int dropOff) {
 */
 
 
-void task_5(){int house_total_requirement, int house_node,int which_material) {
-  int i = 1;
+void task_5(int house_total_requirement[], int house_node[],int which_material[]) {
+  int i = 1, j, k, pos1 = 0, cm=0;
   forward_wls(1);
-  int i, k, pos1;
-  pos1=0;
-  for (i=0;i<len(house_node);i++)
+  for (i=0;i<(sizeof(house_node) / sizeof(int));i++)
   {
     j=house_total_requirement[i];
-    for (k=0;k<j;k++){
-      transport(pos1,which_material[j],house_node[i]);
-      pos1= house_node[i];
+    for (k=0;k<j;k++)
+    { 
+      if(i!=4)
+      {
+        transport(pos1,which_material[cm++],house_node[i]);
+        pos1= house_node[i];   
+      }
+      else
+      {//node H5
+        stop();
+        break;
+      }
     }
   }
 }
@@ -585,11 +625,13 @@ void task_5(){int house_total_requirement, int house_node,int which_material) {
 * Example Call: setup()
 */
 void setup(){
+  //int floor_array[5], house_total_requirement[5], house_node[5], which_material[9];
   pin_init();
-  floor_array[5] = {1,0,0,1,0} //0 low-rise house and 1 for high-rise house
-  house_total_requirement[5] = {2,2,2,1,2} //How many required at particular house
-  house_node={3,13,5,11,8};
-  which_material[10] = {3,11,9,5,4,7,1,0,2,8} //requirement of each house
+  int floor_array[5] = {1,0,0,1,0}; //0 low-rise house and 1 for high-rise house
+  int house_total_requirement[5] = {2,2,2,1,2}; //How many required at particular house
+  int house_node[5]={3,13,5,11,8};
+  int which_material[9] = {14,10,6,4,14,12,2,2,12}; //requirement of each house
+  task_5(house_total_requirement, house_node, which_material);
 }
 
 void loop(){
