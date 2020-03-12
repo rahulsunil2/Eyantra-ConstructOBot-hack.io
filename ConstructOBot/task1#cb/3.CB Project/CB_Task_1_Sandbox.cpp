@@ -739,6 +739,5 @@ void Task_1_2(void)
 	//PAINTING TO H5
 	printf("\nPAINTING TO H1\n");
 	transport(8, 12, 8);
-	
 
 }  
